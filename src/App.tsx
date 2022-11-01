@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import * as C from './App.styles';
-import powered from './assets/powered.png';
-import leftarrow from './assets/leftarrow.png';
 import down from './assets/down.png';
 import up from './assets/up.png';
 import { StatusName } from './types';
+import { Left_Side } from './components/Left_Side';
+import { Middle_Side } from './components/Middle_Side';
 
 const App = () => {
 
@@ -105,46 +105,36 @@ const App = () => {
     const handleInitial = () => {
         setImc(0);
     }
+
+    const handleHeightChange = (e: ChangeEvent<HTMLInputElement>) =>{
+        setHeight(e.target.value)
+    }
+
+    const handleWeightChange = (e: ChangeEvent<HTMLInputElement>) =>{
+        setWeight(e.target.value)
+    }
     
+    
+
     return (
         <C.Container>
             <C.Area>
 
-                <C.Left_Side imc={imc}>
-                    <img src={powered} alt='powered'/>
-                    <h1>Calcule o seu IMC.</h1>
-                    <p>
-                        IMC é a sigla para índice de Massa Compórea, parâmetro
-                        adotado pela Organização Mundial de Saúde para 
-                        calcular o peso ideal de cada pessoa.
-                    </p>
-                    <input 
-                        type="text"
-                        placeholder="Digite a sua altura. Ex: 1.5 (em métros)"
-                        value={height}
-                        onChange={e=> setHeight(e.target.value)}
-                        disabled={imc===0 ? false : true}
-                    />
-                    <input 
-                        type="text"
-                        placeholder="Digite o seu peso. Ex: 75.3 (em kg)"
-                        value={weight}
-                        onChange={e=> setWeight(e.target.value)}
-                        disabled={imc===0 ? false : true}
-                        
-                    />
-                    <button 
-                        onClick={handleImcCalc}
-                        disabled={imc===0 ? false : true}
-                    >Calcular</button>
+                <Left_Side 
+                    imc={imc} 
+                    height={height} 
+                    weight={weight} 
+                    onChange_Height={handleHeightChange} 
+                    onChange_Weight={handleWeightChange} 
+                    onClick={handleImcCalc}
+                />
 
-                </C.Left_Side>
+                <Middle_Side 
+                    imc={imc} 
+                    onClick={handleInitial}
+                />
 
-                <C.middle>
-                    <C.Back imc={imc}>
-                        <img onClick={handleInitial} src={leftarrow} alt='leftarrow'/>
-                    </C.Back>
-                </C.middle>
+              
                     
 
                         <C.Right_Side>
