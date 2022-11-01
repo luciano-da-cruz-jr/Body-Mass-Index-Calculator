@@ -1,5 +1,11 @@
 import styled from "styled-components";
-import { StatusName } from "./types";
+
+type Props = {
+    index?: number;
+    color?: string;
+    second_color?: string;
+    imc?: number;
+}
 
 export const Container = styled.div``;
 
@@ -11,8 +17,9 @@ export const Area = styled.div`
     flex-direction: row;
 `;
 
-export const Left_Side = styled.div`
-    
+export const Left_Side = styled.div(({ imc }:  Props ) => (
+
+    `
     margin-top: 50px;
     margin-bottom: 50px;
     height: auto;
@@ -46,6 +53,8 @@ export const Left_Side = styled.div`
         border-left: none;
         border-bottom: 1px solid #5a849f;
         padding-bottom: 10px;
+        outline: none;
+        opacity: ${imc === 0 ? 'none' : '0.5'};
 
         ::placeholder{
             color: #5a849f;
@@ -60,15 +69,18 @@ export const Left_Side = styled.div`
         background-color: #227c9d;
         font-size: 18px;
         color: white;
+        opacity: ${imc === 0 ? 'none' : '0.5'};
+        cursor: pointer;
     }
-`;
+    `
+));
 
 export const Right_Side = styled.div`
 
     max-width: 570px;
     margin-top: 50px;
     margin-bottom: 50px;
-    padding: 50px;
+    padding: 50px 0;
     border: 1px solid blue;
     height: 350px;
     display: flex;
@@ -76,22 +88,19 @@ export const Right_Side = styled.div`
     flex-wrap: wrap; 
 `;
 
-type Props = {
-    index: number;
-    color: string;
-    second_color: string;
-}
 
-export const Status = styled.div(({ color, second_color }:  Props ) => (
+
+export const Status = styled.div(({ color, second_color, imc }:  Props ) => (
     `
         margin: 10px;
-        width: 180px;
-        height: 180px;
+        width: ${imc === 0 ? '180px' : '380px'};
+        height: ${imc === 0 ? '180px' : '380px'};
         border: 1px solid ${color};
         border-radius: 10px;
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
+        flex-direction: ${imc === 0 ? 'none' : 'column'};
         align-items: center;
         background-color: ${color};
         color: white;
@@ -104,6 +113,7 @@ export const Status = styled.div(({ color, second_color }:  Props ) => (
             align-items: center;
             justify-content: center;
             display: flex;
+
             background: ${second_color};
         }
 
@@ -124,5 +134,37 @@ export const Status = styled.div(({ color, second_color }:  Props ) => (
     `
 ));
 
+export const Back = styled.div(({ imc }:  Props ) => (
+    `
+        background-color: #237b9f;
+        display: flex;
+        height: 50px;
+        width: 50px;
+        border-radius: 50px;
+        align-items: center;
+        justify-content: center;
+        visibility: ${imc === 0 ? 'hidden' : 'visible'};;
+        z-index: 1;
+        margin-right: -80px;
+        margin-top: 50px;
+        
+
+        img {
+            width: 35px;
+            cursor: pointer;
+        }
+    `
+));
+
+export const middle = styled.div`
+
+        border: 1px solid green;
+        width: 50px;
+        margin-top: 50px;
+        margin-bottom: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+`;
 
 
