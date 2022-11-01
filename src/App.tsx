@@ -1,10 +1,9 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import * as C from './App.styles';
-import down from './assets/down.png';
-import up from './assets/up.png';
 import { StatusName } from './types';
 import { Left_Side } from './components/Left_Side';
 import { Middle_Side } from './components/Middle_Side';
+import { Status } from './components/Status';
 
 const App = () => {
 
@@ -113,8 +112,6 @@ const App = () => {
     const handleWeightChange = (e: ChangeEvent<HTMLInputElement>) =>{
         setWeight(e.target.value)
     }
-    
-    
 
     return (
         <C.Container>
@@ -133,73 +130,40 @@ const App = () => {
                     imc={imc} 
                     onClick={handleInitial}
                 />
+                        
+                <C.Right_Side>
+                    { imc === 0 ?
+                        statusName.map((statusName, index) => (
+                            <Status statusName={statusName} index={index} imc={imc}/>
+                        ))
+                            
+                            : imc >= 0 && imc < 18.5 ? 
+                                outCome.map((outCome, index) => (
+                                <Status statusName={outCome} index={index} imc={imc}/>
+                            ))    
 
-              
-                    
+                                : imc >= 18.5 && imc < 24.9 ? 
+                                    outCome.map((outCome, index) => (
+                                    <Status statusName={outCome} index={index} imc={imc}/>
+                                ))   
 
-                        <C.Right_Side>
-                        { imc === 0 ?
-                            statusName.map((statusName, index) => (
-                                <C.Status index={index} color={statusName.color} second_color={statusName.second_color} imc={imc}>
-                                    <div>
-                                            <img src={statusName.good_health ? up : down} alt={statusName.name}/>
-                                    </div>
-                                    <label>{statusName.name}</label>
-                                    <p>{statusName.criterio}</p>
-                                </C.Status>
-                            ))
-
-                                    : imc >= 0 && imc < 18.5 ? 
+                                    : imc >= 24.9 && imc < 30.0 ? 
                                         outCome.map((outCome, index) => (
-                                            <C.Status index={index} color={outCome.color} second_color={outCome.second_color} imc={imc}>
-                                                <div>
-                                                    <img src={outCome.good_health ? up : down} alt={outCome.name}/>
-                                                </div>
-                                                <label>{outCome.name}</label>
-                                                <h3>Seu IMC é de {imc} kg/m2</h3>
-                                                <p>{outCome.criterio}</p>
-                                            </C.Status>
-                                        ))    
+                                        <Status statusName={outCome} index={index} imc={imc}/>
+                                    )) 
 
-                                            : imc >= 18.5 && imc < 24.9 ? 
-                                                outCome.map((outCome, index) => (
-                                                    <C.Status index={index} color={outCome.color} second_color={outCome.second_color} imc={imc}>
-                                                        <div>
-                                                            <img src={outCome.good_health ? up : down} alt={outCome.name}/>
-                                                        </div>
-                                                        <label>{outCome.name}</label>
-                                                            <h3>Seu IMC é de {imc} kg/m2</h3>
-                                                        <p>{outCome.criterio}</p>
-                                                    </C.Status>
-                                                ))   
-
-                                                : imc >= 24.9 && imc < 30.0 ? 
-                                                    outCome.map((outCome, index) => (
-                                                        <C.Status index={index} color={outCome.color} second_color={outCome.second_color} imc={imc}>
-                                                            <div>
-                                                                <img src={outCome.good_health ? up : down} alt={outCome.name}/>
-                                                            </div>
-                                                            <label>{outCome.name}</label>
-                                                                <h3>Seu IMC é de {imc} kg/m2</h3>
-                                                            <p>{outCome.criterio}</p>
-                                                        </C.Status>
-                                                    )) 
-
-                                                    : imc >= 30 && imc < 99 ? 
-                                                        outCome.map((outCome, index) => (
-                                                            <C.Status index={index} color={outCome.color} second_color={outCome.second_color} imc={imc}>
-                                                                <div>
-                                                                    <img src={outCome.good_health ? up : down} alt={outCome.name}/>
-                                                                </div>
-                                                                <label>{outCome.name}</label>
-                                                                    <h3>Seu IMC é de {imc} kg/m2</h3>
-                                                                <p>{outCome.criterio}</p>
-                                                            </C.Status>
-                                                        ))  
+                                        : imc >= 30 && imc < 99 ? 
+                                            outCome.map((outCome, index) => (
+                                            <Status statusName={outCome} index={index} imc={imc}/>
+                                        ))  
                                                             
-                                                        : <>IMC indefinido</>
-                        }                           
-                        </C.Right_Side>
+                                            : <>
+                                                IMC indefinido, por favor, confira os dados informados 
+                                                e tente novamente!
+                                                Lembrando que os dados precisam ser númericos!
+                                            </>
+                    }                           
+                </C.Right_Side>
 
                     
 
