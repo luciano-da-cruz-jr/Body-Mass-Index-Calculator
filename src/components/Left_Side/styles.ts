@@ -57,6 +57,10 @@ export const Left_Side = styled.div(({ imc }:  Props ) => (
         color: white;
         opacity: ${imc === 0 ? 'none' : '0.5'};
         cursor: pointer;
+
+        :hover{
+            opacity:0.7;
+        }
     }
     `
 ));

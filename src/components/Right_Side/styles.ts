@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Right_Side = styled.div`
+export const Container = styled.div`
 
     max-width: 570px;
     margin-top: 50px;
